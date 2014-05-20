@@ -93,7 +93,12 @@
     
 }
 - (CGContextRef)createARGBBitmapContextFromImage:(CGImageRef)inImage {
-    
+    /*
+     This adroit method taken from
+     http://stackoverflow.com/questions/9061800/how-do-i-autocrop-a-uiimage
+     
+     Thank you @daltonclaybrook!
+     */
     CGContextRef context = NULL;
     CGColorSpaceRef colorSpace;
     void *bitmapData;
@@ -145,7 +150,12 @@
     return [image CGImageForProposedRect:NULL context:[NSGraphicsContext currentContext] hints:nil];
 }
 - (CGRect)cropRectForImage:(NSImage *)image {
-    
+    /*
+     This adroit method taken from
+     http://stackoverflow.com/questions/9061800/how-do-i-autocrop-a-uiimage
+     
+     Thank you @daltonclaybrook!
+     */
     CGImageRef cgImage = [self imageRefForNSImage:image];
     CGContextRef context = [self createARGBBitmapContextFromImage:cgImage];
     if (context == NULL) return CGRectZero;
