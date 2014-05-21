@@ -13,6 +13,7 @@
         <customObject id="-3" userLabel="Application"/>
         <customObject id="Voe-Tx-rLC" customClass="SAAppDelegate">
             <connections>
+                <outlet property="oneSizeFitsAllButton" destination="b2Z-Rv-GSg" id="qYj-y7-d76"/>
                 <outlet property="renameBaseTextField" destination="7yy-en-43R" id="NKw-dT-Ayv"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
@@ -44,7 +45,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="268" height="312"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OIO-Rn-Ov3">
+                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OIO-Rn-Ov3">
                         <rect key="frame" x="14" y="264" width="240" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Select Images" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="vTh-r5-Zli">
@@ -55,7 +56,7 @@
                             <action selector="openFileChooserUI:" target="Voe-Tx-rLC" id="qRD-qX-vcR"/>
                         </connections>
                     </button>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7yy-en-43R">
+                    <textField verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7yy-en-43R">
                         <rect key="frame" x="20" y="229" width="228" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" alignment="center" placeholderString="RenameBase" drawsBackground="YES" id="7eU-uu-WP5">
@@ -64,17 +65,12 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g4C-Hh-PnA">
-                        <rect key="frame" x="14" y="193" width="240" height="32"/>
+                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KdC-vZ-rb6">
+                        <rect key="frame" x="14" y="146" width="112" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="push" title="Name Incrementally" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2KX-XT-fDB">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                        </buttonCell>
-                    </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KdC-vZ-rb6">
-                        <rect key="frame" x="15" y="146" width="239" height="32"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="a8R-Yj-2Ma"/>
+                        </constraints>
                         <buttonCell key="cell" type="push" title=" Image Crop" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="JF1-uo-JGC">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -83,7 +79,7 @@
                             <action selector="crop:" target="Voe-Tx-rLC" id="2Ee-B1-yvz"/>
                         </connections>
                     </button>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BTj-UF-iEt">
+                    <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BTj-UF-iEt">
                         <rect key="frame" x="84" y="13" width="100" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="push" title="Save As..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="u5n-6A-t61">
@@ -94,22 +90,28 @@
                             <action selector="saveAs:" target="Voe-Tx-rLC" id="e0B-wG-eda"/>
                         </connections>
                     </button>
+                    <button ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="b2Z-Rv-GSg">
+                        <rect key="frame" x="126" y="154" width="124" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="check" title="One Size Fits All" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="THF-C2-LZ7">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="7yy-en-43R" firstAttribute="leading" secondItem="OIO-Rn-Ov3" secondAttribute="leading" id="5W1-21-5xS"/>
-                    <constraint firstItem="KdC-vZ-rb6" firstAttribute="trailing" secondItem="g4C-Hh-PnA" secondAttribute="trailing" id="NDA-58-fHm"/>
-                    <constraint firstItem="7yy-en-43R" firstAttribute="trailing" secondItem="OIO-Rn-Ov3" secondAttribute="trailing" id="QkK-to-bAE"/>
-                    <constraint firstItem="g4C-Hh-PnA" firstAttribute="centerX" secondItem="KdC-vZ-rb6" secondAttribute="centerX" id="UJ1-mp-1bA"/>
-                    <constraint firstItem="7yy-en-43R" firstAttribute="leading" secondItem="g4C-Hh-PnA" secondAttribute="leading" id="VgU-rr-l6s"/>
-                    <constraint firstAttribute="trailing" secondItem="OIO-Rn-Ov3" secondAttribute="trailing" constant="20" symbolic="YES" id="Z8e-6F-6qn"/>
-                    <constraint firstItem="KdC-vZ-rb6" firstAttribute="top" secondItem="g4C-Hh-PnA" secondAttribute="bottom" constant="26" id="dE0-Yv-knQ"/>
-                    <constraint firstItem="7yy-en-43R" firstAttribute="top" secondItem="OIO-Rn-Ov3" secondAttribute="bottom" constant="20" id="dYS-u4-2bE"/>
-                    <constraint firstItem="BTj-UF-iEt" firstAttribute="centerX" secondItem="KdC-vZ-rb6" secondAttribute="centerX" id="etD-Gm-Dza"/>
-                    <constraint firstAttribute="bottom" secondItem="BTj-UF-iEt" secondAttribute="bottom" constant="20" symbolic="YES" id="fE0-cU-jMV"/>
-                    <constraint firstItem="OIO-Rn-Ov3" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="fyg-tl-Zrr"/>
-                    <constraint firstItem="OIO-Rn-Ov3" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="jVD-Ek-7XX"/>
-                    <constraint firstItem="g4C-Hh-PnA" firstAttribute="top" secondItem="7yy-en-43R" secondAttribute="bottom" constant="8" symbolic="YES" id="nWn-XZ-5KF"/>
-                    <constraint firstItem="7yy-en-43R" firstAttribute="trailing" secondItem="g4C-Hh-PnA" secondAttribute="trailing" id="oKd-C8-ndj"/>
+                    <constraint firstAttribute="centerX" secondItem="b2Z-Rv-GSg" secondAttribute="centerX" constant="-54" id="207-EM-kgD"/>
+                    <constraint firstItem="7yy-en-43R" firstAttribute="centerX" secondItem="BTj-UF-iEt" secondAttribute="centerX" id="4sC-YO-cUV"/>
+                    <constraint firstAttribute="centerX" secondItem="BTj-UF-iEt" secondAttribute="centerX" id="BId-ei-m2d"/>
+                    <constraint firstItem="b2Z-Rv-GSg" firstAttribute="leading" secondItem="KdC-vZ-rb6" secondAttribute="trailing" constant="8" symbolic="YES" id="V7l-w4-75N"/>
+                    <constraint firstItem="b2Z-Rv-GSg" firstAttribute="trailing" secondItem="7yy-en-43R" secondAttribute="trailing" id="aEK-jQ-pQo"/>
+                    <constraint firstItem="OIO-Rn-Ov3" firstAttribute="trailing" secondItem="7yy-en-43R" secondAttribute="trailing" id="aqa-dh-GCw"/>
+                    <constraint firstItem="KdC-vZ-rb6" firstAttribute="top" secondItem="7yy-en-43R" secondAttribute="bottom" constant="55" id="auO-9d-Qwy"/>
+                    <constraint firstAttribute="centerX" secondItem="OIO-Rn-Ov3" secondAttribute="centerX" id="bXf-bv-8ER"/>
+                    <constraint firstItem="7yy-en-43R" firstAttribute="leading" secondItem="OIO-Rn-Ov3" secondAttribute="leading" id="dHo-fC-AcN"/>
+                    <constraint firstItem="b2Z-Rv-GSg" firstAttribute="centerY" secondItem="KdC-vZ-rb6" secondAttribute="centerY" id="e8r-4X-pdb"/>
+                    <constraint firstItem="7yy-en-43R" firstAttribute="top" secondItem="OIO-Rn-Ov3" secondAttribute="bottom" constant="20" id="uOr-et-bNF"/>
+                    <constraint firstItem="7yy-en-43R" firstAttribute="leading" secondItem="KdC-vZ-rb6" secondAttribute="leading" id="wpo-HJ-s4U"/>
                 </constraints>
             </view>
         </window>

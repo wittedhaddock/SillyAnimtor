@@ -12,6 +12,8 @@
 @property (strong, nonatomic) NSMutableArray *images;
 @property (strong, nonatomic) NSMutableArray *croppedImages;
 @property (weak) IBOutlet NSTextField *renameBaseTextField;
+@property (weak) IBOutlet NSButton *oneSizeFitsAllButton;
+@property (nonatomic) CGRect *oneSizeFitsAllRect;
 @end
 @implementation SAAppDelegate
 
@@ -32,6 +34,10 @@
     // Insert code here to initialize your application
 }
 - (IBAction)openFileChooserUI:(NSButton *)sender {
+    _images = nil;
+    _croppedImages = nil;
+    _oneSizeFitsAllRect = nil;
+    
     NSArray *allowedFileTypes = [NSArray arrayWithObjects:@"jpg", @"png", nil];
     
     NSOpenPanel *fileSelector = [NSOpenPanel openPanel];
@@ -190,18 +196,65 @@
     } else {
         return CGRectZero;
     }
-    
+    NSLog(@"%@", NSStringFromRect(CGRectMake(lowX, lowY, highX-lowX, highY-lowY)));
     return CGRectMake(lowX, lowY, highX-lowX, highY-lowY);
 }
+
+- (CGRect)getTheOneRectThatFitsAll{
+    int lowX = 0, lowY = 0, highWidth = 0, highHeight = 0;
+    
+    NSMutableArray *imageRects = [NSMutableArray array];
+    for (int i = 0; i < [self.images count]; i++) {
+        
+        CGRect minimumImageRect = [self cropRectForImage:self.images[i]];
+        [imageRects addObject:[NSValue valueWithRect:minimumImageRect]];
+       
+    }
+    for (int i = 0; i < [imageRects count]; i++) {
+        if (-1 * CGRectGetMinX([imageRects[i] rectValue]) < lowX) {
+            lowX = CGRectGetMinX([imageRects[i] rectValue]);
+        }
+        if (-1 * CGRectGetMinY([imageRects[i] rectValue]) < lowY) {
+            lowY = CGRectGetMinY([imageRects[i] rectValue]);
+        }
+        if (CGRectGetMaxX([imageRects[i] rectValue]) > highWidth) {
+            highWidth = CGRectGetMaxX([imageRects[i] rectValue]) - CGRectGetMinX([imageRects[i] rectValue]);
+        }
+        if (CGRectGetMaxY([imageRects[i] rectValue]) > highHeight) {
+            highHeight = CGRectGetMaxY([imageRects[i] rectValue]) - CGRectGetMinY([imageRects[i] rectValue]);
+        }
+    }
+    
+    return CGRectMake(lowX, lowY, highWidth, highHeight);
+}
 - (IBAction)crop:(id)sender {
+    
         for (int i = 0; i < [self.images count]; i++) {
             CGRect minimumImageRect = [self cropRectForImage:self.images[i]];
-            CGImageRef croppedImageRef = CGImageCreateWithImageInRect([self imageRefForNSImage:self.images[i]], minimumImageRect);
-            NSImage *croppedImage = [[NSImage alloc] initWithCGImage:croppedImageRef size:NSZeroSize];
+            NSImage *croppedImage;
+            if (self.oneSizeFitsAllButton.state == 0) {
+                CGImageRef croppedImageRef = CGImageCreateWithImageInRect([self imageRefForNSImage:self.images[i]], minimumImageRect);
+                croppedImage = [[NSImage alloc] initWithCGImage:croppedImageRef size:NSZeroSize];
+            }
+            else {
+                static dispatch_once_t once;
+                static CGRect sharedInstance;
+                
+                dispatch_once(&once, ^
+                              {
+                                  sharedInstance = [self getTheOneRectThatFitsAll];
+                              });
+
+                self.oneSizeFitsAllRect = &(sharedInstance);
+                CGImageRef croppedImageRef = CGImageCreateWithImageInRect([self imageRefForNSImage:self.images[i]], *(self.oneSizeFitsAllRect));
+                croppedImage = [[NSImage alloc] initWithCGImage:croppedImageRef size:NSZeroSize];
+            }
+            
             [self.croppedImages addObject:croppedImage];
             
-    
     }
+    
+    
 }
 
 @end
